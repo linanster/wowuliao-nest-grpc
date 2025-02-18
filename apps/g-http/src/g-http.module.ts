@@ -17,17 +17,12 @@ import { ConfigModule } from '@nestjs/config';
           protoPath: 'proto/user.proto',
           url:
             process.env['GRPC_CLIENT_USER_URL'] ?? 'dns:///grpc-service:50051',
-          // url: '10.96.157.217:50051',
-          // loader: {
-          //   keepCase: true,
-          // },
-          // url: '10.244.0.113:50051',
-          // channelOptions: {
-          //   'grpc.service_config': JSON.stringify({
-          //     loadBalancingConfig: [{ round_robin: {} }],
-          //   }),
-          //   'grpc.dns_min_time_between_resolutions_ms': 5000, // 可选：每 5 秒刷新 DNS
-          // },
+          channelOptions: {
+            'grpc.service_config': JSON.stringify({
+              loadBalancingConfig: [{ round_robin: {} }],
+            }),
+            'grpc.dns_min_time_between_resolutions_ms': 5000, // 可选：每 5 秒刷新 DNS
+          },
         },
       },
     ]),
